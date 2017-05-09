@@ -221,8 +221,8 @@ CREATE TABLE appointment (
   cID INT NOT NULL,
   license_plate VARCHAR(50) NOT NULL ,
   Routine_maintenance_date DATE,
-  Email_notification_reply boolean,--? not sure again, boolean?
-  Email_notification_confirmation boolean, --? not sure again, boolean?
+  Email_notification_reply boolean,--← not sure again, boolean?
+  Email_notification_confirmation boolean, --← not sure again, boolean?
   Email_notification_date boolean,  
   FOREIGN KEY(license_plate) REFERENCES vehicle(license_plate) ,
   FOREIGN KEY(cID) REFERENCES steady_customer(cID) ,
@@ -244,14 +244,11 @@ CREATE TABLE service_specification (
   Employee_id INT NOT NULL ,
   Service_id INT NOT NULL,
   repairOrder_id INT NOT NULL,
-  timeSpent INT NOT NULL,-- ?--------------------
+  timeSpent INT NOT NULL,-- ←--------------------
   CONSTRAINT servicesepc_fk1  FOREIGN KEY(Employee_id) REFERENCES service(Employee_id) ,
   CONSTRAINT servicesepc_fk2 FOREIGN KEY(repairOrder_id) REFERENCES repair_order(repairOrder_id) ,
   CONSTRAINT servicesepc_fk3  FOREIGN KEY(service_id) REFERENCES service(service_id) ,
   CONSTRAINT servicesepc_pk PRIMARY KEY(Employee_id, service_id,repairOrder_id));
-
-
-
 
 
 
@@ -386,7 +383,7 @@ insert into Employee(Employee_id,lastname,firstname,dayOfBirth,wage,yearsWorked)
 /*below are technician*/
 (1332689,'Haley','Cupples','1986-03-28',1,5 ),
 (1757966,'Grayce','Eby','1988-04-07',2,3 ),
-
+(2003647,'Allen', 'Soar','1993-07-13',3,5),
 /*below are mechanic*/
 (6989943,'Doretha','Roye','1991-03-29',3,4),
 (0765513,'Dong','Flanery','1991-12-19',4,5),
@@ -411,7 +408,8 @@ Insert into Skill(skname ) values
 /*do we need more?*/
 Insert into service_technician(Employee_id) values
 (1332689),
-(1757966);
+(1757966),
+(2003647);
 
 Insert into mechanic(Employee_id) values
 (6989943),
@@ -507,6 +505,7 @@ Insert into service(pname,Service_id,skName,ServName,Cost ) values
 ('package3',6989943,'something','lalalala',22.00),
 ('package4',0765513,'idk','nananana',13.00);
 
+
 /*need to fix the packagename and milereqat*/
 insert  into Maintenance_Interval(pName,license_plate,Milesreqat) values
 ('package1','6XYM454',1),
@@ -525,6 +524,15 @@ insert  into maintenance_package_spec(repairOrder_id,Pname,Time_spent) values
 (642,'package3',4),
 (802,'package4',4);
 
+insert into service_specification(Employee_id, Service_id, repairOrder_id,timeSpent) values
+(6989943,1332689,065,1),
+(0765513,1757966,916,1),
+(6832161,6989943,784,1),
+(9860298,0765513,142,1);
+--(3278345,),
+--(5322594,),
+--(7803923,),
+--(2288773,);
 
 
 
