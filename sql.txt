@@ -79,7 +79,9 @@ CREATE TABLE prospective_customer (
   cID INT NOT NULL,
   Dead_prospect_flag boolean,
   Promotional_email_date DATE,
+  referalID int,
  CONSTRAINT prospective1_fk1 FOREIGN KEY(cID) REFERENCES customer(cID) ,
+ CONSTRAINT prospective1_fk2 FOREIGN KEY(referalID) REFERENCES actual_customer(cID),
  CONSTRAINT prospective_pk PRIMARY KEY(cID));
     
 CREATE TABLE contact ( 
@@ -310,12 +312,12 @@ insert into steady_customer(cID, Loyalty_points) values
 (0734510,11111/*fix*/);
 
 /*prospective_customer insert table*/
-insert into prospective_customer(cID,Dead_prospect_flag,Promotional_email_date) values
-(2145761,1,'2017-10-19'),
-(8845280,1,'2015-07-15'),
-(9565709,0,'2015-03-25'),
-(3696772,0,'2017-10-3'),
-(4104116,1,'2016-07-13');
+insert into prospective_customer(cID,Dead_prospect_flag,Promotional_email_date,referalID) values
+(2145761,1,'2017-10-19',4104116),
+(8845280,1,'2015-07-15',2221286),
+(9565709,0,'2015-03-25',0734510),
+(3696772,0,'2017-10-3',4196013),
+(4104116,1,'2016-07-13',0116145);
 
 /*addressr insert table*/
 /*no idea*/
