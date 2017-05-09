@@ -8,6 +8,7 @@ DROP TABLE premier_customer;
 DROP TABLE prospective_customer;
 DROP TABLE appointment;
 DROP TABLE Maintenance_Interval;
+Drop Table service_specification;
 DROP TABLE steady_customer;
 DROP TABLE vehicle;
 DROP TABLE actual_customer;
@@ -98,10 +99,25 @@ CREATE TABLE premier_customer (
   CONSTRAINT premier_fk1 FOREIGN KEY(cID) REFERENCES actual_customer(cID) ,
   CONSTRAINT premier_pk PRIMARY KEY(cID));
 
+CREATE TABLE vehicle (
+  repairOrder_id INT NOT NULL,
+  cID INT NOT NULL,
+  license_plate VARCHAR(50) NOT NULL ,
+  Mileage INT,
+  model VARCHAR(50) NOT NULL ,
+  manufacturer VARCHAR(50) NOT NULL ,
+  vYear INT,
+  Estimated_yearly_mileage INT,
+  Mileage_accumulation_rate DECIMAL(10,2),
+  Mile_check INT,
+  Accident boolean, 
+  timeSpent Int, 
+  CONSTRAINT vehicle_fk FOREIGN KEY(cID) REFERENCES actual_customer(cID) ,
+  CONSTRAINT vehicle_pk PRIMARY KEY(license_plate,cID));
 
 
 CREATE TABLE Employee (
-  Employee_id INT NOT NULL AUTO_INCREMENT,
+  Employee_id INT NOT NULL ,
   lastName VARCHAR(50) NOT NULL ,
   firstName VARCHAR(50) NOT NULL ,
   dayOfBirth VARCHAR(50) NOT NULL ,
@@ -176,18 +192,18 @@ CREATE TABLE maintenance_package_spec (
 CREATE TABLE service (
   pName  VARCHAR(25) NOT NULL,
   skName VARCHAR(25) NOT NULL ,
-  Service_id INT NOT NULL,
+  Service_id INT,
   ServName VARCHAR(25) NOT NULL,
   Cost decimal(10,2),
  CONSTRAINT service_fk  FOREIGN KEY(pName) REFERENCES maintenance_package (pName) ,
- CONSTRAINT service_pk PRIMARY KEY(Pname,Service_id));
+ CONSTRAINT service_pk PRIMARY KEY(Service_id));
 
 
 CREATE TABLE mentorship (
   skName VARCHAR(25) NOT NULL ,
   Employee_id INT NOT NULL,
   Mentor_id INT NOT NULL ,
-  Start_date DATE,
+  xStart_date DATE,
   End_date DATE,
   CONSTRAINT mentorship_fk FOREIGN KEY(Employee_id) REFERENCES Employee(Employee_id) ,
   CONSTRAINT mentorship_fk1 FOREIGN KEY(skName) REFERENCES Skill(skName) ,
@@ -196,21 +212,6 @@ CREATE TABLE mentorship (
 
 
 
-CREATE TABLE vehicle (
-  repairOrder_id INT NOT NULL,
-  cID INT NOT NULL,
-  license_plate VARCHAR(50) NOT NULL ,
-  Mileage INT,
-  model VARCHAR(50) NOT NULL ,
-  manufacturer VARCHAR(50) NOT NULL ,
-  vYear INT,
-  Estimated_yearly_mileage INT,
-  Mileage_accumulation_rate DECIMAL(10,2),
-  Mile_check INT,
-  Accident boolean, 
-  timeSpent Int, 
-  CONSTRAINT vehicle_fk FOREIGN KEY(cID) REFERENCES actual_customer(cID) ,
-  CONSTRAINT vehicle_pk PRIMARY KEY(license_plate,cID));
 
 
 
@@ -221,8 +222,8 @@ CREATE TABLE appointment (
   cID INT NOT NULL,
   license_plate VARCHAR(50) NOT NULL ,
   Routine_maintenance_date DATE,
-  Email_notification_reply boolean,--← not sure again, boolean?
-  Email_notification_confirmation boolean, --← not sure again, boolean?
+  Email_notification_reply boolean,--? not sure again, boolean?
+  Email_notification_confirmation boolean, --? not sure again, boolean?
   Email_notification_date boolean,  
   FOREIGN KEY(license_plate) REFERENCES vehicle(license_plate) ,
   FOREIGN KEY(cID) REFERENCES steady_customer(cID) ,
@@ -241,11 +242,11 @@ CONSTRAINT Maintenanceint_pk PRIMARY KEY (license_plate,Milesreqat));
 
 /*Constrant dont work*/
 CREATE TABLE service_specification (
-  Employee_id INT NOT NULL ,
+  Employee_id INT NOT NULL,
   Service_id INT NOT NULL,
-  repairOrder_id INT NOT NULL,
-  timeSpent INT NOT NULL,-- ←--------------------
-  CONSTRAINT servicesepc_fk1  FOREIGN KEY(Employee_id) REFERENCES service(Employee_id) ,
+  repairOrder_id INT NOT NULL ,
+  timeSpent INT NOT NULL,
+  CONSTRAINT servicesepc_fk1  FOREIGN KEY(Employee_id) REFERENCES mechanic(Employee_id) ,
   CONSTRAINT servicesepc_fk2 FOREIGN KEY(repairOrder_id) REFERENCES repair_order(repairOrder_id) ,
   CONSTRAINT servicesepc_fk3  FOREIGN KEY(service_id) REFERENCES service(service_id) ,
   CONSTRAINT servicesepc_pk PRIMARY KEY(Employee_id, service_id,repairOrder_id));
