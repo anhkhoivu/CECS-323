@@ -203,7 +203,7 @@ CREATE TABLE mentorship (
   skName VARCHAR(25) NOT NULL ,
   Employee_id INT NOT NULL,
   Mentor_id INT NOT NULL ,
-  xStart_date DATE,
+  Start_date DATE,
   End_date DATE,
   CONSTRAINT mentorship_fk FOREIGN KEY(Employee_id) REFERENCES Employee(Employee_id) ,
   CONSTRAINT mentorship_fk1 FOREIGN KEY(skName) REFERENCES Skill(skName) ,
