@@ -412,7 +412,10 @@ Insert into mentorship(skname,Employee_id,Mentor_id,Start_date,End_date) values
 
 
 Insert into Skilled(Employee_id,Proficiency,skname) values
-(6989943,'1','dummy3'),
+(6989943,'4','dummy3'),
+(6989943,'4','dummy2'),
+(6989943,'4','dummy1'),
+(6989943,'4','tire rotation'),
 (0765513,'2','dummy3'),
 (6832161,'3','dummy3'),
 (9860298,'4','dummy3'),
