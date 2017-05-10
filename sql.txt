@@ -1,5 +1,3 @@
-/*All the table have dummy variable at the moment for testing*/
-
 
  /*These are for droping table*/
 /*Comment out of you dont need*/
@@ -237,7 +235,15 @@ insert  into customer(cID,email_address,Customer_type) values
 (3696772,'tangsh@verizon.net','prospective'),
 (0734510,'notaprguy@mac.com','steady'),
 (2221286,'nacho@icloud.com','premier'),
-(4104116,'empathy@sbcglobal.net','prospective');
+(4104116,'empathy@sbcglobal.net','prospective'),
+(9656838,'sravani@msn.com','steady'),
+(3335995,'josem@yahoo.com','steady'),
+(8684784,'jrkorson@verizon.net','steady'),
+(7068749,'rande@outlook.com','steady'),
+(3978664,'dartlife@outlook.com','steady'),
+(6680710,'tmaek@verizon.net','steady'),
+(9037505,'kewley@comcast.net','steady'),
+(3099753,'mschwartz@hotmail.com','steady');
 
 
 
@@ -258,15 +264,23 @@ insert into actual_customer (cID) values
 (3696772),
 (0734510),
 (2221286),
+(9656838),
+(3335995),
+(8684784),
+(7068749),
+(3978664),
+(6680710),
+(9037505),
+(3099753),
 (4104116);
 
 
 insert into premier_customer(cID, monthly_installment,actual_annual_cost,fifitydollarsoff) values
-(7365022,'843'/*fix*/,  12/*fix*/, 0),
-(0116145,'913'/*fix*/,  23/*fix*/, 1),
-(0054940,'662'/*fix*/,  34/*fix*/, 0),
-(8849693,'060'/*fix*/,  45/*fix*/, 1),
-(2221286,'804'/*fix*/,  56/*fix*/, 0);
+(7365022,'2',  200, 0),
+(0116145,'4',  1500, 1),
+(0054940,'3',  500, 0),
+(8849693,'5',  2000, 1),
+(2221286,'4',  900, 0);
 
 
 /*steady_customerinsert table*/
@@ -279,14 +293,28 @@ insert into steady_customer(cID, Loyalty_points) values
 
 /*prospective_customer insert table*/
 insert into prospective_customer(cID,Dead_prospect_flag,Promotional_email_date,refID) values
-(2145761,1,'2017-10-19',4104116),
+(2145761,0,'2017-10-19',4104116),
+--(2145761,0,'2016-12-19',9656838),
+--(2145761,0,'2017-07-19',3335995),
 (8845280,1,'2015-07-15',2221286),
+--(8845280,1,'2015-03-15',8684784),
+--(8845280,1,'2015-05-15',7068749),
 (9565709,0,'2015-03-25',0734510),
+--(9565709,1,'2015-05-25',3978664),
+--(9565709,0,'2015-07-25',6680710),
 (3696772,0,'2017-10-3',4196013),
+--(3696772,0,'2017-11-3',9037505),
+--(3696772,0,'2017-05-3',3099753),
 (4104116,1,'2016-07-13',0116145);
 
+/*contact insert table*/
+insert into contact(cID, Contact_type, date) values
+(2145761,'email','2017-10-1'),
+(8845280,'email','2017-10-2'),
+(9565709,'email','2017-10-3'),
+(4104116,'email','2017-10-4');
+
 /*addressr insert table*/
-/*no idea*/
 insert into address (cid,address,adType) values
 (2145761,'20 Maple Avenue', 'business'),
 (8845280,'7 W. Adams Lane', 'business'),
@@ -340,51 +368,47 @@ insert into corporation (cID,corpname) values
 
 
 
-/*contact insert table*/
-/*No idea what goes in contact type*/
-insert into contact(cID, Contact_type, date) values
-(2145761,'Phone','2017-10-1'),
-(8845280,'email','2017-10-2'),
-(9565709,'email','2017-10-3'),
-(4104116,'phone','2017-10-4');
+
 
 insert into Employee(Employee_id,emplastName,empfirstName,empdayOfBirth,wage,yearsWorked) values
 /*below are technician*/
-(1332689,'Haley','Cupples','1986-03-28',1,5 ),
-(1757966,'Grayce','Eby','1988-04-07',2,3 ),
-(2003647,'Allen', 'Soar','1993-07-13',3,5),
+(1332689,'Haley','Cupples','1986-03-28',2500,5 ),
+(1757966,'Grayce','Eby','1988-04-07',2300,3 ),
+(2003647,'Allen', 'Soar','1993-07-13',2100,5),
 /*below are mechanic*/
-(6989943,'Doretha','Roye','1991-03-29',3,4),
-(0765513,'Dong','Flanery','1991-12-19',4,5),
-(6832161,'Keisha','Middleton','2000-01-17',6,7),
-(9860298,'Anita','Cox','1979-01-11',6,7),
-(3278345,'Glenn','Gibbs','1982-06-18',6,7),
-(5322594,'Delbert','Porter','1989-01-26',6,7),
-(7803923,'Angie','Martin','1990-06-06',6,7),
-(1234567, 'jack','son','1990-07-07',5,8),
-(2288773,'Lonnie','Newton','1991-07-12',6,7),
-(7654321, 'Sam','Locl','1990-01-23',7,3);
+(6989943,'Doretha','Roye','1991-03-29',3000,4),
+(0765513,'Dong','Flanery','1991-12-19',4000,5),
+(6832161,'Keisha','Middleton','2000-01-17',6000,7),
+(9860298,'Anita','Cox','1979-01-11',6000,7),
+(3278345,'Glenn','Gibbs','1982-06-18',5000,7),
+(5322594,'Delbert','Porter','1989-01-26',3500,7),
+(7803923,'Angie','Martin','1990-06-06',3500,7),
+(1234567, 'jack','son','1990-07-07',3100,8),
+(2288773,'Lonnie','Newton','1991-07-12',3200,7),
+(7654321, 'Sam','Locl','1990-01-23',5200,3);
 
 
 
 
 
-/*do we need more?*/
+
+
+
 Insert into service_technician(Employee_id) values
 (1332689),
 (1757966),
 (2003647);
 
-/*Need the skills name*/
+
 Insert into Skill(skname) values
 ('oil change'),
 ('tire rotation'),
 ('filter change'),
 ('fluid change'),
-('dummy1'),
-('dummy2'),
-('dummy3'),
-('dummy4');
+('belt change'),
+('break change'),
+('engine work'),
+('pipe work');
 
 Insert into mechanic(Employee_id) values
 (6989943),
@@ -398,12 +422,32 @@ Insert into mechanic(Employee_id) values
 (2288773),
 (7654321);
 
+Insert into repair_order(Employee_id,repairOrder_id,Total_cost,Mileage,rDate,Free_car_wash,free_tire_rotation,free_oil_change,license_plate) values
+(1332689, 065, 252.00, 970,'2016-12-16' ,0, 1, 1,'6XYM454'),
+(1757966, 916, 914.00, 1500,'2016-08-28' ,0, 0, 1,'6YKE330'),
+(2003647, 784, 844.00, 321,'2017-01-25' ,0, 1, 1,'5VMU328'),
+(1757966, 142, 357.00, 100,'2017-02-018' ,0, 0, 1,'5FTE873'),
+(1332689, 642, 431.00, 90,'2017-02-03' ,0, 1, 1,'4ZKS747'),
+(2003647, 802, 386.00, 1500,'2017-04-07' ,0, 0, 1,'7BHU877'),
+(1332689, 434, 846.00, 930,'2017-08-08' ,0, 1, 1,'7CSC753'),
+(1757966, 962, 461.00, 700,'2017-10-03' ,0, 0, 1,'7BHF279'),
+(2003647, 430, 283.00, 500,'2017-08-04' ,0, 1, 1,'7CFW247 '),
+(1757966, 988, 907.00, 600,'2017-08-23' ,0, 0, 1,'7CVX303'),
+(1332689, 590, 248.00, 400,'2017-09-21' ,0, 1, 1,'7ATK981'),
+(1757966, 763, 612.00, 300,'2017-10-13' ,0, 0, 1,'7CKV936'),
+(1332689, 699, 949.00, 1100,'2017-11-03' ,0, 1, 1,'6VUZ896'),
+(1757966, 293, 741.00, 1200,'2017-11-17' ,0, 0, 1,'6YEG969'),
+(1757966, 534, 426.00, 1300,'2017-02-23' ,0, 0, 1,'6VNJ708');
+
+
+
+
 Insert into mentorship(skname,Employee_id,Mentor_id,Start_date,End_date) values
 ('oil change',2288773,7654321,'1984-06-29','1992-03-17'),
 ('tire rotation',1234567,7803923,'1986-02-26','1992-09-22'),
-('dummy1',6989943,5322594,'1986-04-16','1992-11-17'),
-('dummy2',0765513,3278345,'1989-12-08','1993-03-05'),
-('dummy3',6832161,9860298,'1992-04-28','1994-07-06');
+('filter change',6989943,5322594,'1986-04-16','1992-11-17'),
+('engine work',0765513,3278345,'1989-12-08','1993-03-05'),
+('fluid change',6832161,9860298,'1992-04-28','1994-07-06');
 
 
 
@@ -412,43 +456,33 @@ Insert into mentorship(skname,Employee_id,Mentor_id,Start_date,End_date) values
 
 
 Insert into Skilled(Employee_id,Proficiency,skname) values
-(6989943,'4','dummy3'),
-(6989943,'4','dummy2'),
-(6989943,'4','dummy1'),
+(6989943,'4','filter change'),
 (6989943,'4','tire rotation'),
-(0765513,'2','dummy3'),
-(6832161,'3','dummy3'),
-(9860298,'4','dummy3'),
-(3278345,'5','dummy3'),
-(5322594,'4','dummy3'),
-(7803923,'3','dummy3'),
-(1234567,'3','dummy3'),
-(2288773,'4','dummy3'),
-(7654321,'4','dummy3');
+(6989943,'4','engine work'),
+(6989943,'4','fluid change'),
+(0765513,'3','engine work'),
+(6832161,'3','fluid change'),
+(6832161,'3','oil change'),
+(9860298,'4','oil change'),
+(9860298,'4','fluid change'),
+(3278345,'5','filter change'),
+(5322594,'4','tire rotation'),
+(7803923,'3','fluid change'),
+(1234567,'3','tire rotation'),
+(2288773,'4','oil change'),
+(7654321,'4','oil change'),
+(7654321,'4','tire rotation'),
+(7654321,'4','engine work');
 
 
-/*Fix all of the boolean to match up with what customer they are*/
-Insert into repair_order(Employee_id,repairOrder_id,Total_cost,Mileage,rDate,Free_car_wash,free_tire_rotation,free_oil_change,license_plate) values
-(1332689, 065, 252.00, 970,'2016-12-16' ,0, 1, 1,'6XYM454'),
-(1757966, 916, 914.00, 1500,'2016-08-28' ,0, 0, 1,'6YKE330'),
-(1332689, 784, 844.00, 321,'2017-01-25' ,0, 1, 1,'5VMU328'),
-(1757966, 142, 357.00, 100,'2017-02-018' ,0, 0, 1,'5FTE873'),
-(1332689, 642, 431.00, 90,'2017-02-03' ,0, 1, 1,'4ZKS747'),
-(1757966, 802, 386.00, 1500,'2017-04-07' ,0, 0, 1,'7BHU877'),
-(1332689, 434, 846.00, 930,'2017-08-08' ,0, 1, 1,'7CSC753'),
-(1757966, 962, 461.00, 700,'2017-10-03' ,0, 0, 1,'7BHF279'),
-(1332689, 430, 283.00, 500,'2017-08-04' ,0, 1, 1,'7CFW247 '),
-(1757966, 988, 907.00, 600,'2017-08-23' ,0, 0, 1,'7CVX303'),
-(1332689, 590, 248.00, 400,'2017-09-21' ,0, 1, 1,'7ATK981'),
-(1757966, 763, 612.00, 300,'2017-10-13' ,0, 0, 1,'7CKV936'),
-(1332689, 699, 949.00, 1100,'2017-11-03' ,0, 1, 1,'6VUZ896'),
-(1757966, 293, 741.00, 1200,'2017-11-17' ,0, 0, 1,'6YEG969'),
-(1757966, 534, 426.00, 1300,'2017-02-23' ,0, 0, 1,'6VNJ708');
+
 
 insert into vehicle (cID,license_plate,Mileage,model,manufacturer,vYear,Estimated_yearly_mileage,Mileage_accumulation_rate,Mile_check,Accident) values
 ( 8813079, '6XYM454',1/*fix*/,'M3 E30','BMW', 2010,370,3802,0/*fix*/,0),
+( 8813079, '6ZYM454',1/*fix*/,'M2 E30','BMW', 2010,370,3802,0/*fix*/,0),
 ( 7365022, '6YKE330',1/*fix*/,'M3 E36','BMW', 2010,432,2385,0/*fix*/,1),
-( 2145761, '5VMU328',1/*fix*/,'X5 M','BMW', 2010,195,2047,0/*fix*/,0),
+( 7365022, '6ZKE330',1/*fix*/,'M6 E36','BMW', 2010,432,2385,0/*fix*/,1),
+( 2145761, '5VMU328',1/*fix*/,'X5 M71','BMW', 2010,195,2047,0/*fix*/,0),
 ( 4196013, '5FTE873',1/*fix*/,'Z4 GT3','BMW', 2011,155,5471,0/*fix*/,1),
 ( 0116145, '4ZKS747',1/*fix*/,'2000GT','Toyota', 2011,827,5455,0/*fix*/,0),
 ( 8845280, '7BHU877',1/*fix*/,'Altezza RS200','Toyota', 2011,677,4238,0/*fix*/,1),
@@ -458,6 +492,8 @@ insert into vehicle (cID,license_plate,Mileage,model,manufacturer,vYear,Estimate
 ( 6891501, '7CVX303',1/*fix*/,'Silvia Ks (S14)','Nissan', 2013,294,2035,0/*fix*/,0),
 ( 8849693, '7ATK981',1/*fix*/,'Leaf','Nissan', 2013,194,4435,0/*fix*/,0),
 ( 3696772, '7CKV936',1/*fix*/,'Fairlady Z','Nissan', 2013,857,4174,0/*fix*/,0),
+( 3696772, '7ZKV936',1/*fix*/,'Fairlady x','Nissan', 2013,857,4174,0/*fix*/,0),
+( 3696772, '7XKV936',1/*fix*/,'Fairlady y','Nissan', 2013,857,4174,0/*fix*/,0),
 ( 0734510, '6VUZ896',1/*fix*/,'C32 AMG','Mercedes', 2014,723,3637,0/*fix*/,0),
 ( 2221286, '6YEG969',1/*fix*/,'GTR','Mercedes', 2014,207,2955,0/*fix*/,1),
 ( 4104116, '6VNJ708',1/*fix*/,'SLR ','Mercedes', 2014,319,2704,0/*fix*/,1);
@@ -466,45 +502,45 @@ insert into vehicle (cID,license_plate,Mileage,model,manufacturer,vYear,Estimate
 insert into appointment (cID,license_plate,Routine_maintenance_date,Email_notification_reply,
                         Email_notification_confirmation,Email_notification_date) values
 (8813079,'6XYM454','2016-12-16',1,1,1),
-(4196013,'5FTE873','2016-7-16',1,1,1),
-(3473219,'7CSC753','2016-8-16',1,1,1),
-(6891501,'7CVX303','2016-9-16',1,1,1),
+(4196013,'5FTE873','2016-7-16',0,1,1),
+(3473219,'7CSC753','2016-8-16',1,0,1),
+(6891501,'7CVX303','2016-9-16',1,1,0),
 (0734510,'6VUZ896','2016-3-16',1,1,1);
 
 
 
-/*Need the package name and cost*/
+
 Insert into maintenance_package(pname,cost) value
-('package1', 72.00),
-('package2', 32.00),
-('package3', 190.00),
-('package4', 300.00);
+('fluid package', 72.00),
+('tire package', 220.00),
+('break package', 82.00),
+('engine package', 750.00);
 
-/*need to fix the packagen name to the one above*/
+
 Insert into service(pname,Service_id,skName,ServName,servCost ) values
-('package1',1332689,'oil change','hahahae',22.00),
-('package2',1757966,'tire rototation','ehehehe',13.00),
-('package3',6989943,'something','lalalala',22.00),
-('package4',0765513,'idk','nananana',13.00);
+('fluid package',1332689,'fluid change','Fluid Change',22.00),
+('tire package',1757966,'tire rototation','Tire Replacement',13.00),
+('break package',6989943,'break change','Break',22.00),
+('engine package',0765513,'engine work','Repair Engine',13.00);
 
 
-/*need to fix the packagename and milereqat*/
+
 insert  into Maintenance_Interval(pName,license_plate,Milesreqat) values
-('package1','6XYM454',1),
-('package2','6YKE330',1),
-('package3','5VMU328',1),
-('package4','5FTE873',1),
-('package3','4ZKS747',1),
-('package4','7BHU877',1);
+('fluid package','6XYM454',1500),
+('tire package','6YKE330',10000),
+('break package','5VMU328',5000),
+('break package','5FTE873',5000),
+('tire package','4ZKS747',10000),
+('fluid package','7BHU877',1500);
 
 
 insert  into maintenance_package_spec(repairOrder_id,Pname,Time_spent) values
-(065,'package1',4),
-(916,'package2',5),
-(784,'package3',6),
-(142,'package4',7),
-(642,'package3',8),
-(802,'package4',9);
+(065,'fluid package',4),
+(916,'tire package',5),
+(784,'break package',6),
+(142,'break package',7),
+(642,'tire package',8),
+(802,'fluid package',9);
 
 insert into service_specification(Employee_id, Service_id, repairOrder_id,timeSpent) values
 (6989943,1332689,065,1),
