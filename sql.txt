@@ -1,3 +1,5 @@
+/*All the table have dummy variable at the moment for testing*/
+
 
  /*These are for droping table*/
 /*Comment out of you dont need*/
@@ -418,6 +420,8 @@ Insert into mechanic(Employee_id) values
 (3278345),
 (5322594),
 (7803923),
+(1332689),
+(1757966),
 (1234567),
 (2288773),
 (7654321);
