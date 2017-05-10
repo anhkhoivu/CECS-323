@@ -1,5 +1,3 @@
-/*All the table have dummy variable at the moment for testing*/
-
 
  /*These are for droping table*/
 /*Comment out of you dont need*/
