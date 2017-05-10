@@ -3,12 +3,12 @@
 
  /*These are for droping table*/
 /*Comment out of you dont need*/
+
 DROP TABLE contact;
 DROP TABLE premier_customer;
 DROP TABLE prospective_customer;
 DROP TABLE appointment;
 DROP TABLE Maintenance_Interval;
-Drop Table service_specification;
 DROP TABLE steady_customer;
 DROP TABLE vehicle;
 DROP TABLE actual_customer;
@@ -16,6 +16,7 @@ DROP TABLE private_individual;
 DROP TABLE corporation;
 DROP TABLE address;
 DROP TABLE customer;
+DROP TABLE service_specification;
 DROP TABLE service;
 DROP TABLE Skilled;
 DROP TABLE mentorship;
@@ -27,30 +28,16 @@ DROP TABLE repair_order;
 DROP TABLE service_technician;
 DROP TABLE Employee;
 
-
-
-
-
 CREATE TABLE customer (
-  cID INT NOT NULL AUTO_INCREMENT,
-  email_address VARCHAR(50) NOT NULL ,
-  Customer_type ENUM('steady', 'premier', 'prospective') NOT NULL,
+  cID INT NOT NULL,
+  email_address VARCHAR(50) NOT NULL,
+  Customer_type VARCHAR(50) NOT NULL,
   CONSTRAINT customer_pk PRIMARY KEY (cID));
-
-
-CREATE TABLE address (
-cID INT NOT NULL AUTO_INCREMENT,
-  address VARCHAR(50) NOT NULL ,
- Type ENUM('business','home') NOT NULL,
- CONSTRAINT address_fk1 FOREIGN KEY(cID) REFERENCEs customer(cid),
- CONSTRAINT address_pk PRIMARY KEY (address,cid));
-
-
 
 CREATE TABLE corporation (
   cID INT NOT NULL,
-  name VARCHAR(50) NOT NULL ,
-  CONSTRAINT corporation_fk1 FOREIGN KEY(cid) REFERENCEs customer(cid),
+  corpname VARCHAR(50) NOT NULL,
+  CONSTRAINT corp1_fk1 FOREIGN KEY(cID) REFERENCEs customer(cID),
   CONSTRAINT corporation_pk PRIMARY KEY (cID));
 
 CREATE TABLE private_individual (
@@ -58,10 +45,15 @@ CREATE TABLE private_individual (
   first_name VARCHAR(50) NOT NULL ,
   last_name VARCHAR(50) NOT NULL ,
   Day_of_birth DATE,
-  CONSTRAINT private2_fk2 FOREIGN KEY(cID) REFERENCEs customer(cID) ,  
+  CONSTRAINT private1_fk1 FOREIGN KEY(cID) REFERENCEs customer(cID) ,  
   Constraint private_pk  PRIMARY KEY(cID));
 
-
+CREATE TABLE address (
+ cID INT NOT NULL, 
+ address VARCHAR(50) NOT NULL ,
+ adType VARCHAR(50) NOT NULL,
+ CONSTRAINT address_fk1 FOREIGN KEY(cID) REFERENCEs customer(cID),
+ CONSTRAINT address_pk PRIMARY KEY (cID, address));
 
 CREATE TABLE actual_customer (
   cID INT NOT NULL,
@@ -74,15 +66,14 @@ CREATE TABLE steady_customer (
   CONSTRAINT steady1_fk1  FOREIGN KEY(cID) REFERENCES actual_customer(cID) ,
   CONSTRAINT steady_pk PRIMARY KEY(cID));
 
-
 CREATE TABLE prospective_customer (
   cID INT NOT NULL,
   Dead_prospect_flag boolean,
   Promotional_email_date DATE,
-  referalID int,
- CONSTRAINT prospective1_fk1 FOREIGN KEY(cID) REFERENCES customer(cID) ,
- CONSTRAINT prospective1_fk2 FOREIGN KEY(referalID) REFERENCES actual_customer(cID),
- CONSTRAINT prospective_pk PRIMARY KEY(cID));
+  refID INT NOT NULL, 
+  CONSTRAINT prospective1_fk1 FOREIGN KEY(cID) REFERENCES customer(cID) ,
+  CONSTRAINT prospective1_fk2 FOREIGN KEY(refID) REFERENCES actual_customer(cID) ,
+  CONSTRAINT prospective_pk PRIMARY KEY(cID));
     
 CREATE TABLE contact ( 
   cID INT NOT NULL,
@@ -95,41 +86,19 @@ CREATE TABLE contact (
 CREATE TABLE premier_customer (
   cID INT NOT NULL,
   monthly_installment  VARCHAR(50),
-  personal_referral_number int not null,
   actual_annual_cost int not null,
   fifitydollarsoff boolean,
   CONSTRAINT premier_fk1 FOREIGN KEY(cID) REFERENCES actual_customer(cID) ,
   CONSTRAINT premier_pk PRIMARY KEY(cID));
 
-CREATE TABLE vehicle (
-  repairOrder_id INT NOT NULL,
-  cID INT NOT NULL,
-  license_plate VARCHAR(50) NOT NULL ,
-  Mileage INT,
-  model VARCHAR(50) NOT NULL ,
-  manufacturer VARCHAR(50) NOT NULL ,
-  vYear INT,
-  Estimated_yearly_mileage INT,
-  Mileage_accumulation_rate DECIMAL(10,2),
-  Mile_check INT,
-  Accident boolean, 
-  timeSpent Int, 
-  CONSTRAINT vehicle_fk FOREIGN KEY(cID) REFERENCES actual_customer(cID) ,
-  CONSTRAINT vehicle_pk PRIMARY KEY(license_plate,cID));
-
-
 CREATE TABLE Employee (
-  Employee_id INT NOT NULL ,
-  lastName VARCHAR(50) NOT NULL ,
-  firstName VARCHAR(50) NOT NULL ,
-  dayOfBirth VARCHAR(50) NOT NULL ,
+  Employee_id INT NOT NULL,
+  emplastName VARCHAR(50) NOT NULL ,
+  empfirstName VARCHAR(50) NOT NULL ,
+  empdayOfBirth VARCHAR(50) NOT NULL ,
   wage INT,
   yearsWorked INT ,
  CONSTRAINT employee_pk PRIMARY KEY (Employee_id));
-
-
-
-
 
 CREATE TABLE service_technician (
   Employee_id INT NOT NULL,
@@ -143,63 +112,46 @@ CREATE TABLE mechanic (
   CONSTRAINT mechanic_pk PRIMARY KEY (Employee_id));
 
 
-
+CREATE TABLE vehicle (
+  cID INT NOT NULL,
+  license_plate VARCHAR(50) NOT NULL ,
+  Mileage INT,
+  model VARCHAR(50) NOT NULL ,
+  manufacturer VARCHAR(50) NOT NULL ,
+  vYear INT,
+  Estimated_yearly_mileage INT,
+  Mileage_accumulation_rate DECIMAL(10,2),
+  Mile_check INT,
+  Accident boolean, 
+  CONSTRAINT vehicle_fk FOREIGN KEY(cID) REFERENCES actual_customer(cID) ,
+  CONSTRAINT vehicle_pk PRIMARY KEY(license_plate));
 
 
 CREATE TABLE repair_order (
   Employee_id INT NOT NULL ,
-  repairOrder_id INT NOT NULL AUTO_INCREMENT,
+  repairOrder_id INT NOT NULL ,
   Total_cost DECIMAL(10,2),
   Mileage INT,
   rDate DATE,
   Free_car_wash boolean, /*(is this a boolean?)*/
   free_tire_rotation boolean, /*(boolean?,.*/
-  free_oil_check boolean, /*(boolean?)*/
+  free_oil_change boolean, /*(boolean?)*/
   license_plate VARCHAR(50) NOT NULL,
   CONSTRAINT repair_fk1 FOREIGN KEY(Employee_id) REFERENCES service_technician(Employee_id) ,
   CONSTRAINT repair_pk PRIMARY KEY(repairOrder_id));
-
-
-
-CREATE TABLE Skilled (
-  Employee_id INT NOT NULL ,
-  Proficiency VARCHAR(50) NOT NULL ,
-  customer_id INT NOT NULL ,
- CONSTRAINT Skilled_fk1  FOREIGN KEY(Employee_id) REFERENCES Employee(Employee_id) ,
-  CONSTRAINT Skilled_pk PRIMARY KEY(Employee_id));
-
-
 
 
 CREATE TABLE Skill (
   skName VARCHAR(25) NOT NULL ,
   CONSTRAINT Skill_pk PRIMARY KEY( skName ));
 
-
-CREATE TABLE maintenance_package (
-  pName varchar(15),
-  Cost decimal(10,2),
-  CONSTRAINT maintpak_pk PRIMARY KEY (Pname));
-
-CREATE TABLE maintenance_package_spec (
-  repairOrder_id INT NOT NULL,
-  Pname varchar(15) NOT NULL,
-  Time_spent int not null,/* --( what do you guys mean by time spent? Days? hours?)*/
-  CONSTRAINT maintpakspec_fk1  FOREIGN KEY(repairOrder_id) REFERENCES repair_order(repairOrder_id) ,
-  CONSTRAINT maintpaksepc_fk2  FOREIGN KEY(pName) REFERENCES maintenance_package(pName) ,
-  CONSTRAINT maintpakspec_pk PRIMARY KEY (repairOrder_id,pName));
-
-
-  
-CREATE TABLE service (
-  pName  VARCHAR(25) NOT NULL,
+CREATE TABLE Skilled (
+  Employee_id INT NOT NULL ,
+  Proficiency VARCHAR(50) NOT NULL ,
   skName VARCHAR(25) NOT NULL ,
-  Service_id INT,
-  ServName VARCHAR(25) NOT NULL,
-  Cost decimal(10,2),
- CONSTRAINT service_fk  FOREIGN KEY(pName) REFERENCES maintenance_package (pName) ,
- CONSTRAINT service_pk PRIMARY KEY(Service_id));
-
+  CONSTRAINT Skilled_fk1  FOREIGN KEY(Employee_id) REFERENCES Employee(Employee_id) ,
+  CONSTRAINT Skilled_fk2  FOREIGN KEY(skName) REFERENCES Skill(skName) ,
+  CONSTRAINT Skilled_pk PRIMARY KEY(Employee_id, skName));
 
 CREATE TABLE mentorship (
   skName VARCHAR(25) NOT NULL ,
@@ -207,18 +159,44 @@ CREATE TABLE mentorship (
   Mentor_id INT NOT NULL ,
   Start_date DATE,
   End_date DATE,
-  CONSTRAINT mentorship_fk FOREIGN KEY(Employee_id) REFERENCES Employee(Employee_id) ,
+  CONSTRAINT mentorship_fk FOREIGN KEY(Employee_id) REFERENCES mechanic(Employee_id) ,
+  CONSTRAINT mentorship_fk2 FOREIGN KEY(Mentor_id) REFERENCES mechanic(Employee_id) ,
   CONSTRAINT mentorship_fk1 FOREIGN KEY(skName) REFERENCES Skill(skName) ,
   PRIMARY KEY (Employee_id,Mentor_id,Start_date));
 
+CREATE TABLE maintenance_package (
+  pName varchar(15),
+  Cost decimal(10,2),
+  CONSTRAINT maintpak_pk PRIMARY KEY (pName));
+
+CREATE TABLE maintenance_package_spec (
+  repairOrder_id INT NOT NULL,
+  pName varchar(15) NOT NULL,
+  Time_spent int not null,/* --( what do you guys mean by time spent? Days? hours?)*/
+  CONSTRAINT maintpakspec_fk1  FOREIGN KEY(repairOrder_id) REFERENCES repair_order(repairOrder_id) ,
+  CONSTRAINT maintpaksepc_fk2  FOREIGN KEY(pName) REFERENCES maintenance_package(pName) ,
+  CONSTRAINT maintpakspec_pk PRIMARY KEY (repairOrder_id, pName));
+
+  
+CREATE TABLE service (
+  pName  VARCHAR(15) NOT NULL,
+  skName VARCHAR(25) NOT NULL ,
+  Service_id INT NOT NULL,
+  ServName VARCHAR(25) NOT NULL,
+  ServCost decimal(10,2),
+ CONSTRAINT service_fk  FOREIGN KEY(pName) REFERENCES maintenance_package(pName) ,
+ CONSTRAINT service_pk PRIMARY KEY(Service_id));
 
 
-
-
-
-
-
-
+CREATE TABLE service_specification (
+  Employee_id INT NOT NULL ,
+  Service_id INT NOT NULL,
+  repairOrder_id INT NOT NULL,
+  timeSpent INT NOT NULL,-- ?--------------------
+  CONSTRAINT servicesepc_fk1  FOREIGN KEY(Employee_id) REFERENCES mechanic(Employee_id) ,
+  CONSTRAINT servicesepc_fk2 FOREIGN KEY(repairOrder_id) REFERENCES repair_order(repairOrder_id) ,
+  CONSTRAINT servicesepc_fk3  FOREIGN KEY(service_id) REFERENCES service(service_id) ,
+  CONSTRAINT servicesepc_pk PRIMARY KEY(Employee_id, service_id,repairOrder_id));
 
 CREATE TABLE appointment (
   cID INT NOT NULL,
@@ -229,7 +207,7 @@ CREATE TABLE appointment (
   Email_notification_date boolean,  
   FOREIGN KEY(license_plate) REFERENCES vehicle(license_plate) ,
   FOREIGN KEY(cID) REFERENCES steady_customer(cID) ,
-  PRIMARY KEY(license_plate, routine_maintenance_date,Email_notification_date));
+  PRIMARY KEY(license_plate, cID,Email_notification_date));
 
 
 
@@ -240,18 +218,6 @@ Milesreqat int not null,
 CONSTRAINT Maintenanceint_fk1 FOREIGN KEY(pName) REFERENCES maintenance_package(pName),
 CONSTRAINT Maintenanceint_fk2 FOREIGN KEY(license_plate) REFERENCES vehicle(license_plate),
 CONSTRAINT Maintenanceint_pk PRIMARY KEY (license_plate,Milesreqat));
-
-
-/*Constrant dont work*/
-CREATE TABLE service_specification (
-  Employee_id INT NOT NULL,
-  Service_id INT NOT NULL,
-  repairOrder_id INT NOT NULL ,
-  timeSpent INT NOT NULL,
-  CONSTRAINT servicesepc_fk1  FOREIGN KEY(Employee_id) REFERENCES mechanic(Employee_id) ,
-  CONSTRAINT servicesepc_fk2 FOREIGN KEY(repairOrder_id) REFERENCES repair_order(repairOrder_id) ,
-  CONSTRAINT servicesepc_fk3  FOREIGN KEY(service_id) REFERENCES service(service_id) ,
-  CONSTRAINT servicesepc_pk PRIMARY KEY(Employee_id, service_id,repairOrder_id));
 
 
 
@@ -295,24 +261,24 @@ insert into actual_customer (cID) values
 (4104116);
 
 
-insert into premier_customer(cID, monthly_installment, personal_referral_number,actual_annual_cost,fifitydollarsoff) values
-(7365022,'843'/*fix*/, 04, 1/*fix*/, 1),
-(0116145,'913'/*fix*/, 26, 2/*fix*/, 0),
-(0054940,'662'/*fix*/, 72, 3/*fix*/, 1),
-(8849693,'060'/*fix*/, 05, 4/*fix*/, 0),
-(2221286,'804'/*fix*/, 19, 5/*fix*/, 1);
+insert into premier_customer(cID, monthly_installment,actual_annual_cost,fifitydollarsoff) values
+(7365022,'843'/*fix*/,  12/*fix*/, 0),
+(0116145,'913'/*fix*/,  23/*fix*/, 1),
+(0054940,'662'/*fix*/,  34/*fix*/, 0),
+(8849693,'060'/*fix*/,  45/*fix*/, 1),
+(2221286,'804'/*fix*/,  56/*fix*/, 0);
 
 
 /*steady_customerinsert table*/
 insert into steady_customer(cID, Loyalty_points) values
-(8813079,77777/*fix*/),
-(4196013,11111/*fix*/),
-(3473219,22222/*fix*/),
-(6891501,33333/*fix*/),
-(0734510,11111/*fix*/);
+(8813079,53),
+(4196013,100),
+(3473219,72),
+(6891501,33),
+(0734510,11);
 
 /*prospective_customer insert table*/
-insert into prospective_customer(cID,Dead_prospect_flag,Promotional_email_date,referalID) values
+insert into prospective_customer(cID,Dead_prospect_flag,Promotional_email_date,refID) values
 (2145761,1,'2017-10-19',4104116),
 (8845280,1,'2015-07-15',2221286),
 (9565709,0,'2015-03-25',0734510),
@@ -321,7 +287,7 @@ insert into prospective_customer(cID,Dead_prospect_flag,Promotional_email_date,r
 
 /*addressr insert table*/
 /*no idea*/
-insert into address (cid,address,type) values
+insert into address (cid,address,adType) values
 (2145761,'20 Maple Avenue', 'business'),
 (8845280,'7 W. Adams Lane', 'business'),
 (9565709,'7246 W. Windsor', 'business'),
@@ -365,7 +331,7 @@ insert into private_individual (cID,first_name,last_name,Day_of_birth) values
 
 
 /*corporation  insert table*/
-insert into corporation (cID,name) values
+insert into corporation (cID,corpname) values
 (2145761,'Mircrosoft'),
 (8845280,'Apple'),
 (9565709,'RentMyCar'),
@@ -382,7 +348,7 @@ insert into contact(cID, Contact_type, date) values
 (9565709,'email','2017-10-3'),
 (4104116,'phone','2017-10-4');
 
-insert into Employee(Employee_id,lastname,firstname,dayOfBirth,wage,yearsWorked) values
+insert into Employee(Employee_id,emplastName,empfirstName,empdayOfBirth,wage,yearsWorked) values
 /*below are technician*/
 (1332689,'Haley','Cupples','1986-03-28',1,5 ),
 (1757966,'Grayce','Eby','1988-04-07',2,3 ),
@@ -395,17 +361,12 @@ insert into Employee(Employee_id,lastname,firstname,dayOfBirth,wage,yearsWorked)
 (3278345,'Glenn','Gibbs','1982-06-18',6,7),
 (5322594,'Delbert','Porter','1989-01-26',6,7),
 (7803923,'Angie','Martin','1990-06-06',6,7),
-(2288773,'Lonnie','Newton','1991-07-12',6,7);
+(1234567, 'jack','son','1990-07-07',5,8),
+(2288773,'Lonnie','Newton','1991-07-12',6,7),
+(7654321, 'Sam','Locl','1990-01-23',7,3);
 
-Insert into Skill(skname ) values
-('oil change'),
-('tire rototation'),
-('something'),
-('idk');
-/*();
-();
-();
-();*/
+
+
 
 
 /*do we need more?*/
@@ -413,6 +374,17 @@ Insert into service_technician(Employee_id) values
 (1332689),
 (1757966),
 (2003647);
+
+/*Need the skills name*/
+Insert into Skill(skname) values
+('oil change'),
+('tire rotation'),
+('filter change'),
+('fluid change'),
+('dummy1'),
+('dummy2'),
+('dummy3'),
+('dummy4');
 
 Insert into mechanic(Employee_id) values
 (6989943),
@@ -422,14 +394,16 @@ Insert into mechanic(Employee_id) values
 (3278345),
 (5322594),
 (7803923),
-(2288773);
+(1234567),
+(2288773),
+(7654321);
 
 Insert into mentorship(skname,Employee_id,Mentor_id,Start_date,End_date) values
-('oil change',1332689,2288773,'1984-06-29','1992-03-17'),
-('tire rototation',1757966,7803923,'1986-02-26','1992-09-22'),
-('something',6989943,5322594,'1986-04-16','1992-11-17'),
-('something',0765513,3278345,'1989-12-08','1993-03-05'),
-('SOMETHING',6832161,9860298,'1992-04-28','1994-07-06');
+('oil change',2288773,7654321,'1984-06-29','1992-03-17'),
+('tire rotation',1234567,7803923,'1986-02-26','1992-09-22'),
+('dummy1',6989943,5322594,'1986-04-16','1992-11-17'),
+('dummy2',0765513,3278345,'1989-12-08','1993-03-05'),
+('dummy3',6832161,9860298,'1992-04-28','1994-07-06');
 
 
 
@@ -437,47 +411,53 @@ Insert into mentorship(skname,Employee_id,Mentor_id,Start_date,End_date) values
 
 
 
-Insert into Skilled(Employee_id,Proficiency,customer_id) values
-(1332689,'1',8813079),
-(1757966,'2',7365022),
-(6989943,'3',2145761),
-(0765513,'4',4196013);
+Insert into Skilled(Employee_id,Proficiency,skname) values
+(6989943,'1','dummy3'),
+(0765513,'2','dummy3'),
+(6832161,'3','dummy3'),
+(9860298,'4','dummy3'),
+(3278345,'5','dummy3'),
+(5322594,'4','dummy3'),
+(7803923,'3','dummy3'),
+(1234567,'3','dummy3'),
+(2288773,'4','dummy3'),
+(7654321,'4','dummy3');
 
 
 /*Fix all of the boolean to match up with what customer they are*/
-Insert into repair_order(Employee_id,repairOrder_id,Total_cost,Mileage,rDate,Free_car_wash,free_tire_rotation,free_oil_check,license_plate) values
-(1332689, 065, 252.00, 970/*fix*/,'2016-12-16' ,0, 1, 1,'6XYM454'),
-(1757966, 916, 914.00, 1500/*fix*/,'2016-08-28' ,0, 0, 1,'6YKE330'),
-(1332689, 784, 844.00, 970/*fix*/,'2017-01-25' ,0, 1, 1,'5VMU328'),
-(1757966, 142, 357.00, 1500/*fix*/,'2017-02-018' ,0, 0, 1,'5FTE873'),
-(1332689, 642, 431.00, 970/*fix*/,'2017-02-03' ,0, 1, 1,'4ZKS747'),
-(1757966, 802, 386.00, 1500/*fix*/,'2017-04-07' ,0, 0, 1,'7BHU877'),
-(1332689, 434, 846.00, 970/*fix*/,'2017-08-08' ,0, 1, 1,'7CSC753'),
-(1757966, 962, 461.00, 1500/*fix*/,'2017-10-03' ,0, 0, 1,'7BHF279'),
-(1332689, 430, 283.00, 970/*fix*/,'2017-08-04' ,0, 1, 1,'7CFW247 '),
-(1757966, 988, 907.00, 1500/*fix*/,'2017-08-23' ,0, 0, 1,'7CVX303'),
-(1332689, 590, 248.00, 970/*fix*/,'2017-09-21' ,0, 1, 1,'7ATK981'),
-(1757966, 763, 612.00, 1500/*fix*/,'2017-10-13' ,0, 0, 1,'7CKV936'),
-(1332689, 699, 949.00, 970/*fix*/,'2017-11-03' ,0, 1, 1,'6VUZ896'),
-(1757966, 293, 741.00, 1500/*fix*/,'2017-11-17' ,0, 0, 1,'6YEG969'),
-(1757966, 534, 426.00, 1500/*fix*/,'2017-02-23' ,0, 0, 1,'6VNJ708');
+Insert into repair_order(Employee_id,repairOrder_id,Total_cost,Mileage,rDate,Free_car_wash,free_tire_rotation,free_oil_change,license_plate) values
+(1332689, 065, 252.00, 970,'2016-12-16' ,0, 1, 1,'6XYM454'),
+(1757966, 916, 914.00, 1500,'2016-08-28' ,0, 0, 1,'6YKE330'),
+(1332689, 784, 844.00, 321,'2017-01-25' ,0, 1, 1,'5VMU328'),
+(1757966, 142, 357.00, 100,'2017-02-018' ,0, 0, 1,'5FTE873'),
+(1332689, 642, 431.00, 90,'2017-02-03' ,0, 1, 1,'4ZKS747'),
+(1757966, 802, 386.00, 1500,'2017-04-07' ,0, 0, 1,'7BHU877'),
+(1332689, 434, 846.00, 930,'2017-08-08' ,0, 1, 1,'7CSC753'),
+(1757966, 962, 461.00, 700,'2017-10-03' ,0, 0, 1,'7BHF279'),
+(1332689, 430, 283.00, 500,'2017-08-04' ,0, 1, 1,'7CFW247 '),
+(1757966, 988, 907.00, 600,'2017-08-23' ,0, 0, 1,'7CVX303'),
+(1332689, 590, 248.00, 400,'2017-09-21' ,0, 1, 1,'7ATK981'),
+(1757966, 763, 612.00, 300,'2017-10-13' ,0, 0, 1,'7CKV936'),
+(1332689, 699, 949.00, 1100,'2017-11-03' ,0, 1, 1,'6VUZ896'),
+(1757966, 293, 741.00, 1200,'2017-11-17' ,0, 0, 1,'6YEG969'),
+(1757966, 534, 426.00, 1300,'2017-02-23' ,0, 0, 1,'6VNJ708');
 
-insert into vehicle (repairOrder_id,cID,license_plate,Mileage,model,manufacturer,vYear,Estimated_yearly_mileage,Mileage_accumulation_rate,Mile_check,Accident,timeSpent) values
-(065, 8813079, '6XYM454',1/*fix*/,'M3 E30','BMW', 2010,370,3802,0/*fix*/,0,0/*fix*/),
-(916, 7365022, '6YKE330',1/*fix*/,'M3 E36','BMW', 2010,432,2385,0/*fix*/,1,0/*fix*/),
-(784, 2145761, '5VMU328',1/*fix*/,'X5 M','BMW', 2010,195,2047,0/*fix*/,0,0/*fix*/),
-(142, 4196013, '5FTE873',1/*fix*/,'Z4 GT3','BMW', 2011,155,5471,0/*fix*/,1,0/*fix*/),
-(642, 0116145, '4ZKS747',1/*fix*/,'2000GT','Toyota', 2011,827,5455,0/*fix*/,0,0/*fix*/),
-(802, 8845280, '7BHU877',1/*fix*/,'Altezza RS200','Toyota', 2011,677,4238,0/*fix*/,1,0/*fix*/),
-(434, 3473219, '7CSC753',1/*fix*/,'Aygo','Toyota', 2012,085,4449,0/*fix*/,0,0),
-(962, 0054940, '7BHF279',1/*fix*/,'Celica GT-Four ST205','Toyota', 2012,451,1318,0/*fix*/,1,0/*fix*/),
-(430, 9565709, '7CFW247',1/*fix*/,'R390','Nissan', 2012,719,1308,0/*fix*/,0,0/*fix*/),
-(988, 6891501, '7CVX303',1/*fix*/,'Silvia Ks (S14)','Nissan', 2013,294,2035,0/*fix*/,0,0/*fix*/),
-(590, 8849693, '7ATK981',1/*fix*/,'Leaf','Nissan', 2013,194,4435,0/*fix*/,0,0/*fix*/),
-(763, 3696772, '7CKV936',1/*fix*/,'Fairlady Z','Nissan', 2013,857,4174,0/*fix*/,0,0/*fix*/),
-(699, 0734510, '6VUZ896',1/*fix*/,'C32 AMG','Mercedes', 2014,723,3637,0/*fix*/,0,0/*fix*/),
-(293, 2221286, '6YEG969',1/*fix*/,'GTR','Mercedes', 2014,207,2955,0/*fix*/,1,0/*fix*/),
-(534, 4104116, '6VNJ708',1/*fix*/,'SLR ','Mercedes', 2014,319,2704,0/*fix*/,1,0/*fix*/);
+insert into vehicle (cID,license_plate,Mileage,model,manufacturer,vYear,Estimated_yearly_mileage,Mileage_accumulation_rate,Mile_check,Accident) values
+( 8813079, '6XYM454',1/*fix*/,'M3 E30','BMW', 2010,370,3802,0/*fix*/,0),
+( 7365022, '6YKE330',1/*fix*/,'M3 E36','BMW', 2010,432,2385,0/*fix*/,1),
+( 2145761, '5VMU328',1/*fix*/,'X5 M','BMW', 2010,195,2047,0/*fix*/,0),
+( 4196013, '5FTE873',1/*fix*/,'Z4 GT3','BMW', 2011,155,5471,0/*fix*/,1),
+( 0116145, '4ZKS747',1/*fix*/,'2000GT','Toyota', 2011,827,5455,0/*fix*/,0),
+( 8845280, '7BHU877',1/*fix*/,'Altezza RS200','Toyota', 2011,677,4238,0/*fix*/,1),
+( 3473219, '7CSC753',1/*fix*/,'Aygo','Toyota', 2012,085,4449,0/*fix*/,0),
+( 0054940, '7BHF279',1/*fix*/,'Celica GT-Four ST205','Toyota', 2012,451,1318,0/*fix*/,1),
+( 9565709, '7CFW247',1/*fix*/,'R390','Nissan', 2012,719,1308,0/*fix*/,0),
+( 6891501, '7CVX303',1/*fix*/,'Silvia Ks (S14)','Nissan', 2013,294,2035,0/*fix*/,0),
+( 8849693, '7ATK981',1/*fix*/,'Leaf','Nissan', 2013,194,4435,0/*fix*/,0),
+( 3696772, '7CKV936',1/*fix*/,'Fairlady Z','Nissan', 2013,857,4174,0/*fix*/,0),
+( 0734510, '6VUZ896',1/*fix*/,'C32 AMG','Mercedes', 2014,723,3637,0/*fix*/,0),
+( 2221286, '6YEG969',1/*fix*/,'GTR','Mercedes', 2014,207,2955,0/*fix*/,1),
+( 4104116, '6VNJ708',1/*fix*/,'SLR ','Mercedes', 2014,319,2704,0/*fix*/,1);
 
 
 insert into appointment (cID,license_plate,Routine_maintenance_date,Email_notification_reply,
@@ -487,22 +467,18 @@ insert into appointment (cID,license_plate,Routine_maintenance_date,Email_notifi
 (3473219,'7CSC753','2016-8-16',1,1,1),
 (6891501,'7CVX303','2016-9-16',1,1,1),
 (0734510,'6VUZ896','2016-3-16',1,1,1);
-/*Need the skills name*/
-Insert into Skill(skname) values
-('oil change'),
-('tire rotation'),
-('idk'),
-('we');
+
+
 
 /*Need the package name and cost*/
 Insert into maintenance_package(pname,cost) value
-('package1', 3.00),
-('package2', 3.00),
-('package3', 3.00),
-('package4', 3.00);
+('package1', 72.00),
+('package2', 32.00),
+('package3', 190.00),
+('package4', 300.00);
 
 /*need to fix the packagen name to the one above*/
-Insert into service(pname,Service_id,skName,ServName,Cost ) values
+Insert into service(pname,Service_id,skName,ServName,servCost ) values
 ('package1',1332689,'oil change','hahahae',22.00),
 ('package2',1757966,'tire rototation','ehehehe',13.00),
 ('package3',6989943,'something','lalalala',22.00),
@@ -521,21 +497,17 @@ insert  into Maintenance_Interval(pName,license_plate,Milesreqat) values
 
 insert  into maintenance_package_spec(repairOrder_id,Pname,Time_spent) values
 (065,'package1',4),
-(916,'package2',4),
-(784,'package3',4),
-(142,'package4',4),
-(642,'package3',4),
-(802,'package4',4);
+(916,'package2',5),
+(784,'package3',6),
+(142,'package4',7),
+(642,'package3',8),
+(802,'package4',9);
 
 insert into service_specification(Employee_id, Service_id, repairOrder_id,timeSpent) values
 (6989943,1332689,065,1),
 (0765513,1757966,916,1),
 (6832161,6989943,784,1),
 (9860298,0765513,142,1);
---(3278345,),
---(5322594,),
---(7803923,),
---(2288773,);
 
 
 
