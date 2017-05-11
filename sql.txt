@@ -322,25 +322,25 @@ insert into contact(cID, Contact_type, date) values
 
 /*addressr insert table*/
 insert into address (cid,address,adType) values
-(2145761,'20 Maple Avenue', 'business'),
-(8845280,'7 W. Adams Lane', 'business'),
-(9565709,'7246 W. Windsor', 'business'),
-(4104116,'601 Sherwood Ave', 'business'),
-(8813079,'22 Mechanic Dr.', 'home'),
-(7365022,'48 Penn Rd.', 'home'),
-(2145761,'1 Willow St.', 'home'),
-(4196013,'31 South Indian Spring Court', 'home'),
-(0116145,'242 John Rd.', 'home'),
-(8845280,'620 Ridgeview Court', 'home'),
-(3473219,'9720 Cross Ave.', 'home'),
-(0054940,'185 Sheffield Lane', 'home'),
-(9565709,'8276 S. Taylor St', 'home'),
-(6891501,'8946 Monroe Dr.', 'home'),
-(8849693,'59 St Louis Dr.', 'home'),
-(3696772,'18 John St.', 'home'),
-(0734510,'99 Maiden Ave.', 'home'),
-(2221286,'9449 Pheasant St.', 'home'),
-(4104116,'737 S. Windfall Street', 'home');
+(2145761,'20 Maple Avenue', 'corporation'),
+(8845280,'7 W. Adams Lane', 'corporation'),
+(9565709,'7246 W. Windsor', 'corporation'),
+(4104116,'601 Sherwood Ave', 'corporation'),
+(8813079,'22 Mechanic Dr.', 'individual'),
+(7365022,'48 Penn Rd.', 'individual'),
+(2145761,'1 Willow St.', 'individual'),
+(4196013,'31 South Indian Spring Court', 'individual'),
+(0116145,'242 John Rd.', 'individual'),
+(8845280,'620 Ridgeview Court', 'individual'),
+(3473219,'9720 Cross Ave.', 'individual'),
+(0054940,'185 Sheffield Lane', 'individual'),
+(9565709,'8276 S. Taylor St', 'individual'),
+(6891501,'8946 Monroe Dr.', 'individual'),
+(8849693,'59 St Louis Dr.', 'individual'),
+(3696772,'18 John St.', 'individual'),
+(0734510,'99 Maiden Ave.', 'individual'),
+(2221286,'9449 Pheasant St.', 'individual'),
+(4104116,'737 S. Windfall Street', 'individual');
 --add more later to make private indivudual works
 
 /*private_individual insert table*/
@@ -563,3 +563,10 @@ insert into service_specification(Employee_id, Service_id, repairOrder_id,timeSp
 (6832161,6989943,784,1),
 (9860298,0765513,142,1);
 
+
+
+select first_name, last_name, Customer_type from private_individual natural join premier_customer natural join customer
+union
+select first_name, last_name, Customer_type from private_individual natural join steady_customer natural join customer
+union
+select first_name, last_name, Customer_type from private_individual natural join prospective_customer natural join customer;
