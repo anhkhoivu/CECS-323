@@ -1,3 +1,5 @@
+/*All the table have dummy variable at the moment for testing*/
+
 
  /*These are for droping table*/
 /*Comment out of you dont need*/
@@ -180,7 +182,7 @@ CREATE TABLE service (
   pName  VARCHAR(15) NOT NULL,
   skName VARCHAR(25) NOT NULL ,
   Service_id INT NOT NULL,
-  ServName VARCHAR(25) NOT NULL,
+  ServName VARCHAR(50) NOT NULL,
   ServCost decimal(10,2),
  CONSTRAINT service_fk  FOREIGN KEY(pName) REFERENCES maintenance_package(pName) ,
  CONSTRAINT service_pk PRIMARY KEY(Service_id));
@@ -531,10 +533,10 @@ Insert into maintenance_package(pname,cost) value
 
 
 Insert into service(pname,Service_id,skName,ServName,servCost ) values
-('fluid package',1332689,'fluid change','Fluid Change',22.00),
-('tire package',1757966,'tire rototation','Tire Replacement',13.00),
-('break package',6989943,'break change','Break',22.00),
-('engine package',0765513,'engine work','Repair Engine',13.00);
+('fluid package',1332689,'fluid change','break fluid, steering fluid, engine fluid',22.00),
+('tire package',1757966,'tire rototation','4 tires',13.00),
+('break package',6989943,'break change','12 break pads',22.00),
+('engine package',0765513,'engine work','Engine replace, pipes',13.00);
 
 
 
