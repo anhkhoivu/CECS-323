@@ -354,19 +354,15 @@ insert into address (cid,address,adType) values
 insert into private_individual (cID,first_name,last_name,Day_of_birth) values
 (8813079,'John','Wick', '1984-10-19'),
 (7365022,'Casey','Line','1976-07-15'),
-(2145761,'Smith','George','1994-01-05'),
 (4196013,'Lucia','Briggs','1993-07-12'),
 (0116145,'Vivian','Hayes','1993-07-12'),
-(8845280,'Hazel','Hunt','1993-07-12'),
 (3473219,'Lillie','Holland','1993-07-12'),
 (0054940,'Felipe','Hudson','1993-07-12'),
-(9565709,'Lisa','Campbell','1993-07-12'),
 (6891501,'Clifford','Ward','1993-07-12'),
 (8849693,'Cory','Adkins','1993-07-12'),
 (3696772,'Whitney','Daniel','1993-07-12'),
 (0734510,'Jeremy','Ingram','1993-07-12'),
-(2221286,'Virgil','Hardy','1993-07-12'),
-(4104116,'Ismael','Erickson','1993-07-12');
+(2221286,'Virgil','Hardy','1993-07-12');
 
 
 
