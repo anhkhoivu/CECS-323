@@ -1,4 +1,4 @@
-/*All the table have dummy variable at the moment for testing*/
+
 
 
  /*These are for droping table*/
@@ -223,29 +223,29 @@ CONSTRAINT Maintenanceint_pk PRIMARY KEY (license_plate,Milesreqat));
 
 /*Customer insert table*/
 insert  into customer(cID,email_address,Customer_type) values 
-(8813079,'esasaki@optonline.net','steady'),
-(7365022,'benits@hotmail.comm','premier'),
-(2145761,'mthurn@hotmail.com','prospective'),
-(4196013,'melnik@msn.com','steady'),
-(0116145,'eabrown@live.com','premier'),
-(8845280,'dalamb@outlook.com','prospective'),
-(3473219,'pkilab@comcast.net','steady'),
-(0054940,'munge@mac.com','premier'),
-(9565709,'lydia@sbcglobal.net','prospective'),
-(6891501,'ahuillet@verizon.net','steady'),
-(8849693,'tlinden@att.net','premier'),
-(3696772,'tangsh@verizon.net','prospective'),
-(0734510,'notaprguy@mac.com','steady'),
-(2221286,'nacho@icloud.com','premier'),
-(4104116,'empathy@sbcglobal.net','prospective'),
-(9656838,'sravani@msn.com','steady'),
-(3335995,'josem@yahoo.com','steady'),
-(8684784,'jrkorson@verizon.net','steady'),
-(7068749,'rande@outlook.com','steady'),
-(3978664,'dartlife@outlook.com','steady'),
-(6680710,'tmaek@verizon.net','steady'),
-(9037505,'kewley@comcast.net','steady'),
-(3099753,'mschwartz@hotmail.com','steady');
+(8813079,'esasaki@optonline.net','individual'),
+(7365022,'benits@hotmail.comm','individual'),
+(2145761,'mthurn@hotmail.com','corpation'),
+(4196013,'melnik@msn.com','individual'),
+(0116145,'eabrown@live.com','individual'),
+(8845280,'dalamb@outlook.com','corpation'),
+(3473219,'pkilab@comcast.net','individual'),
+(0054940,'munge@mac.com','individual'),
+(9565709,'lydia@sbcglobal.net','corpation'),
+(6891501,'ahuillet@verizon.net','individual'),
+(8849693,'tlinden@att.net','individual'),
+(3696772,'tangsh@verizon.net','individual'),
+(0734510,'notaprguy@mac.com','individual'),
+(2221286,'nacho@icloud.com','individual'),
+(4104116,'empathy@sbcglobal.net','corpation'),
+(9656838,'sravani@msn.com','individual'),
+(3335995,'josem@yahoo.com','individual'),
+(8684784,'jrkorson@verizon.net','individual'),
+(7068749,'rande@outlook.com','individual'),
+(3978664,'dartlife@outlook.com','individual'),
+(6680710,'tmaek@verizon.net','individual'),
+(9037505,'kewley@comcast.net','individual'),
+(3099753,'mschwartz@hotmail.com','individual');
 
 
 
@@ -278,20 +278,20 @@ insert into actual_customer (cID) values
 
 
 insert into premier_customer(cID, monthly_installment,actual_annual_cost,fifitydollarsoff) values
-(7365022,'2',  200, 0),
-(0116145,'4',  1500, 1),
-(0054940,'3',  500, 0),
-(8849693,'5',  2000, 1),
-(2221286,'4',  900, 0);
+(7365022,'1666',  20000, 0),
+(0116145,'1250',  15000, 1),
+(0054940,'1080',  13000, 0),
+(8849693,'2080',  25000, 1),
+(2221286,'1000',  12000, 0);
 
 
 /*steady_customerinsert table*/
 insert into steady_customer(cID, Loyalty_points) values
-(8813079,53),
+(8813079,50),
 (4196013,100),
-(3473219,72),
-(6891501,33),
-(0734510,11);
+(3473219,70),
+(6891501,30),
+(0734510,10);
 
 /*prospective_customer insert table*/
 insert into prospective_customer(cID,Dead_prospect_flag,Promotional_email_date,refID) values
@@ -323,24 +323,31 @@ insert into contact(cID, Contact_type, date) values
 /*addressr insert table*/
 insert into address (cid,address,adType) values
 (2145761,'20 Maple Avenue', 'corporation'),
+(2145761,'21 Maple Avenue', 'corporation'),
+(2145761,'22 Maple Avenue', 'corporation'),
 (8845280,'7 W. Adams Lane', 'corporation'),
+(8845280,'8 W. Adams Lane', 'corporation'),
+(8845280,'9 W. Adams Lane', 'corporation'),
 (9565709,'7246 W. Windsor', 'corporation'),
+(9565709,'1246 W. Windsor', 'corporation'),
+(9565709, '2246 W. Windsor', 'corporation'),
 (4104116,'601 Sherwood Ave', 'corporation'),
-(8813079,'22 Mechanic Dr.', 'individual'),
-(7365022,'48 Penn Rd.', 'individual'),
-(2145761,'1 Willow St.', 'individual'),
-(4196013,'31 South Indian Spring Court', 'individual'),
-(0116145,'242 John Rd.', 'individual'),
-(8845280,'620 Ridgeview Court', 'individual'),
-(3473219,'9720 Cross Ave.', 'individual'),
-(0054940,'185 Sheffield Lane', 'individual'),
-(9565709,'8276 S. Taylor St', 'individual'),
-(6891501,'8946 Monroe Dr.', 'individual'),
-(8849693,'59 St Louis Dr.', 'individual'),
-(3696772,'18 John St.', 'individual'),
-(0734510,'99 Maiden Ave.', 'individual'),
-(2221286,'9449 Pheasant St.', 'individual'),
-(4104116,'737 S. Windfall Street', 'individual');
+(4104116,'101 Sherwood Ave', 'corporation'),
+(8813079,'22 Mechanic Dr.', 'home'),
+(7365022,'48 Penn Rd.', 'home'),
+(2145761,'1 Willow St.', 'home'),
+(4196013,'31 South Indian Spring Court', 'home'),
+(0116145,'242 John Rd.', 'home'),
+(8845280,'620 Ridgeview Court', 'home'),
+(3473219,'9720 Cross Ave.', 'home'),
+(0054940,'185 Sheffield Lane', 'home'),
+(9565709,'8276 S. Taylor St', 'home'),
+(6891501,'8946 Monroe Dr.', 'home'),
+(8849693,'59 St Louis Dr.', 'home'),
+(3696772,'18 John St.', 'home'),
+(0734510,'99 Maiden Ave.', 'home'),
+(2221286,'9449 Pheasant St.', 'homel'),
+(4104116,'737 S. Windfall Street', 'home');
 --add more later to make private indivudual works
 
 /*private_individual insert table*/
@@ -526,17 +533,17 @@ insert into appointment (cID,license_plate,Routine_maintenance_date,Email_notifi
 
 
 Insert into maintenance_package(pname,cost) value
-('fluid package', 72.00),
+('fluid package', 70.00),
 ('tire package', 220.00),
-('break package', 82.00),
+('break package', 80.00),
 ('engine package', 750.00);
 
 
 Insert into service(pname,Service_id,skName,ServName,servCost ) values
-('fluid package',1332689,'fluid change','break fluid, steering fluid, engine fluid',22.00),
-('tire package',1757966,'tire rototation','4 tires',13.00),
-('break package',6989943,'break change','12 break pads',22.00),
-('engine package',0765513,'engine work','Engine replace, pipes',13.00);
+('fluid package',1332689,'fluid change','break fluid, steering fluid, engine fluid',120.00),
+('tire package',1757966,'tire rototation','4 tires',200.00),
+('break package',6989943,'break change','12 break pads',60.00),
+('engine package',0765513,'engine work','Cylinder,Spark plugs, oid',500.00);
 
 
 
@@ -550,12 +557,12 @@ insert  into Maintenance_Interval(pName,license_plate,Milesreqat) values
 
 
 insert  into maintenance_package_spec(repairOrder_id,Pname,Time_spent) values
-(065,'fluid package',4),
-(916,'tire package',5),
-(784,'break package',6),
-(142,'break package',7),
-(642,'tire package',8),
-(802,'fluid package',9);
+(065,'fluid package',2),
+(916,'tire package',3),
+(784,'break package',4),
+(142,'break package',5),
+(642,'tire package',2),
+(802,'fluid package',3);
 
 insert into service_specification(Employee_id, Service_id, repairOrder_id,timeSpent) values
 (6989943,1332689,065,1),
@@ -564,9 +571,3 @@ insert into service_specification(Employee_id, Service_id, repairOrder_id,timeSp
 (9860298,0765513,142,1);
 
 
-
-select first_name, last_name, Customer_type from private_individual natural join premier_customer natural join customer
-union
-select first_name, last_name, Customer_type from private_individual natural join steady_customer natural join customer
-union
-select first_name, last_name, Customer_type from private_individual natural join prospective_customer natural join customer;
